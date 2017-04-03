@@ -18,9 +18,7 @@ $("#id_form").djForm({
     "inlines": [ ], // inlines para get de data
     "ignore_masks": [], // ignora mascara de campos
     "required": [], // campos required
-    "onValidate": function(){
-      setTabError();
-    },
+    "onValidate": function(){}, // validação customizada
     "status_code": { // resposta da requisição.
       201: function(){ },
       200: function(){ },
