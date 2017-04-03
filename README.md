@@ -11,6 +11,7 @@ Máscara,
 Exemplo
 -------
 
+```javascript
 $("#id_form").djForm({
     "method": "", // http method da requisição.
     "url": "", // url para requisição XHR
@@ -27,3 +28,4 @@ $("#id_form").djForm({
       500: function(){ }
     }
 });
+```
