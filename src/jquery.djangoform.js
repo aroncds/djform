@@ -141,11 +141,11 @@
     };
 
     DjangoForm.prototype.isFieldValid = function(input){
-        var vetor = this.getValidate(input.attr("name"));
+        var validators = this.getValidate(input.attr("name"));
         var value = input.val(), valid = true;
 
-        for (var i = 0, len = vetor.length; i < len; i++){
-            if (!vetor[i].clean(value)){
+        for (var i = 0, len = validators.length; i < len; i++){
+            if (!value || !validators[i].clean(value)){
                 this.setMessage(input, vetor[i].message);
                 return false;
             }
@@ -183,7 +183,7 @@
     DjangoForm.prototype.openModal = function(message, func){
         (function(target, message, func){
             var modalForm = $("<div class='modal-form' />")
-            var modal = $("<div class='inovaGlobal-modal fade in modal' role='dialog' tabindex='-1' style='display:block' />")
+            var modal = $("<div class='fade in modal' role='dialog' tabindex='-1' style='display:block' />")
             .append($("<div class='modal-dialog' />")
             .append($("<div class='modal-content' role='document' />")
             .append($("<div class='modal-body' />")
