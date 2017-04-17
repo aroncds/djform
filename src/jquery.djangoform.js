@@ -50,7 +50,7 @@
       this._fieldsRequired = obj.required || [];
       this._setMask(this.form, obj.ignore_masks || []);
       this._onvalidate = obj.onValidate || function(){};
-      this._blur_invalid_class = obj.blur_invalid_class || "form-control-danger";
+      this._blur_invalid_class = obj.blurInvalidClass || "has-danger";
       this._blur_validate = obj.blurValidate || true;
 
       this.setBlurFieldsValidate();
@@ -204,7 +204,7 @@
 
     DjangoForm.prototype.setMessage = function(input, message){
         if (!input.hasClass(this._blur_invalid_class)){
-            input.addClass(this._blur_invalid_class);
+            input.parent().addClass(this._blur_invalid_class);
         }
 
         if (!input.parent().find("span.err-msg").length){
@@ -218,7 +218,7 @@
         var input = $("[name="+name+"]");
 
         if (!input.hasClass(this._blur_invalid_class)){
-            input.addClass(this._blur_invalid_class);
+            input.parent().addClass(this._blur_invalid_class);
         }
 
         if (!input.parent().find("span.err-msg").length){
@@ -274,9 +274,7 @@
                 var $this = $(this);
 
                 $this.on("blur", function(){
-                    if (!that.isFieldValid($this)){
-                        that.isFieldValid(field)
-                    }
+                    that.isFieldValid($this);
                 });
             });
         }
