@@ -19,6 +19,8 @@ $("#id_form").djForm({
     "ignore_masks": [], // ignora mascara de campos
     "required": [], // campos required
     "onValidate": function(){}, // validação customizada
+    "blurValidate": true,
+    "blurInvalidClass": "",
     "status_code": { // resposta da requisição.
       201: function(){ },
       200: function(){ },

@@ -49,8 +49,11 @@
       this.setFieldValidate(obj.validators || {});
       this._fieldsRequired = obj.required || [];
       this._setMask(this.form, obj.ignore_masks || []);
-
       this._onvalidate = obj.onValidate || function(){};
+      this._blur_invalid_class = obj.blur_invalid_class || "form-control-danger";
+      this._blur_validate = obj.blurValidate || true;
+
+      this.setBlurFieldsValidate();
     };
 
     var Validation = function(){
@@ -200,6 +203,10 @@
     };
 
     DjangoForm.prototype.setMessage = function(input, message){
+        if (!input.hasClass(this._blur_invalid_class)){
+            input.addClass(this._blur_invalid_class);
+        }
+
         if (!input.parent().find("span.err-msg").length){
             input.after($("<span class='err-msg' />").html(message));
         }else{
@@ -209,6 +216,11 @@
 
     DjangoForm.prototype.setNameMessage = function(name, message){
         var input = $("[name="+name+"]");
+
+        if (!input.hasClass(this._blur_invalid_class)){
+            input.addClass(this._blur_invalid_class);
+        }
+
         if (!input.parent().find("span.err-msg").length){
             input.after($("<span class='err-msg' />").html(message));
         }else{
@@ -255,21 +267,24 @@
         return this.fieldValidate['default'];
     }
 
-    DjangoForm.prototype._setValidateBlur = function(fields){
-        var that = this;
-        /*$("input[required]", fields).each(function(){
-            $(this).on("blur", function(){
+    DjangoForm.prototype.setBlurFieldsValidate = function(){
+        if ( this._blur_validate ){
+            var that = this;
+            $(this.getQueryRequired()).each(function(){
                 var $this = $(this);
-                that.removeErrorField($this.parent());
-                if (!that.isFieldValid($this)){
-                    that.setMessage(0, $this, "Campo Obrigatório");
-                }
+
+                $this.on("blur", function(){
+                    if (!that.isFieldValid($this)){
+                        that.isFieldValid(field)
+                    }
+                });
             });
-        });*/
-    };
+        }
+    }
 
     DjangoForm.prototype.removeErrorField = function(fields){
         $(".err-msg", fields).remove();
+        $("." + this._blur_invalid_class).removeClass(this._blur_invalid_class);
     }
 
     DjangoForm.prototype.setUrl = function(url){
