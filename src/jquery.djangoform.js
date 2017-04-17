@@ -146,7 +146,7 @@
 
         for (var i = 0, len = validators.length; i < len; i++){
             if (!value || !validators[i].clean(value)){
-                this.setMessage(input, vetor[i].message);
+                this.setMessage(input, validators[i].message);
                 return false;
             }
         }
