@@ -156,6 +156,7 @@
 
         if(input.hasClass(this._blur_invalid_class)){
             input.removeClass(this._blur_invalid_class);
+            input.parent().find('.err-msg').remove();
         }
 
         return true;
