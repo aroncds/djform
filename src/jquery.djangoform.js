@@ -187,7 +187,7 @@
                 }
             });
 
-            if (this._onvalidate.bind(this)()){
+            if (!this._onvalidate.bind(this)()){
                 erro = true;
             }
         }
