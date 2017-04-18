@@ -177,15 +177,20 @@
     DjangoForm.prototype.validate = function(){
         var that = this, erro = true;
         if (this._fieldsRequired.length){
-            $(this.getQueryRequired()).each(function(){
+            var $query = $(this.getQueryRequired());
+
+            $query.each(function(){
                 var $this = $(this);
 
                 if (!that.isFieldValid($this)){
                     erro = false; 
                 }
             });
+
+            if (this._onvalidate.bind(this)()){
+                erro = true;
+            }
         }
-        this._onvalidate();
         return erro;
     };
 
