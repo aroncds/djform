@@ -175,7 +175,7 @@
     };
 
     DjangoForm.prototype.validate = function(){
-        var that = this, erro = true;
+        var that = this, next = true;
         if (this._fieldsRequired.length){
             var $query = $(this.getQueryRequired());
 
@@ -183,15 +183,15 @@
                 var $this = $(this);
 
                 if (!that.isFieldValid($this)){
-                    erro = false; 
+                    next = false; 
                 }
             });
 
             if (!this._onvalidate.bind(this)()){
-                erro = true;
+                next = false;
             }
         }
-        return erro;
+        return next;
     };
 
     DjangoForm.prototype.openModal = function(message, func){
