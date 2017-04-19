@@ -177,7 +177,7 @@
     DjangoForm.prototype.validate = function(){
         var that = this, next = true;
         if (this._fieldsRequired.length){
-            var $query = $(this.getQueryRequired());
+            var $query = $(this.getQueryRequired(), this.form);
 
             $query.each(function(){
                 var $this = $(this);
@@ -187,7 +187,7 @@
                 }
             });
 
-            if (!this._onvalidate.bind(this)()){
+            if (this._onvalidate != undefined && !this._onvalidate.bind(this)()){
                 next = false;
             }
         }
@@ -226,7 +226,7 @@
     };
 
     DjangoForm.prototype.setNameMessage = function(name, message){
-        var input = $("[name="+name+"]");
+        var input = $("[name="+name+"]", this.form);
 
         if (!input.hasClass(this._blur_invalid_class)){
             input.parent().addClass(this._blur_invalid_class);
